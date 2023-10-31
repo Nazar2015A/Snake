@@ -1,0 +1,233 @@
+.container {
+  display: flex;
+  gap: 2rem;
+  margin: 0 15px;
+}
+.board {
+  outline: 2px solid rgb(134, 154, 189);
+  position: relative;
+  display: flex;
+  gap: 2rem;
+}
+.board-game {
+  position: relative;
+}
+.begin-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(47, 30, 40, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.begin-menu-score {
+  display: flex;
+  gap: 2rem;
+}
+.begin-menu-score input {
+  font-size: 26px;
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+.begin-menu-score-btn {
+  color: #000;
+  background: #FDBB24;
+  border: 1px solid #4E6FA9;
+  font-size: 26px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.begin-menu-score-btn:hover {
+  color: #fff;
+  background: #4E6FA9;
+  border: 1px solid #000;
+}
+.row {
+  height: 35px;
+}
+.leaderboar-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 5px;
+  background: rgb(78, 111, 169);
+}
+.pause-menu-score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+.cell {
+  width: 35px;
+  height: 35px;
+  outline: 1px solid rgb(134, 154, 189);
+  display: inline-block;
+}
+.pause-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cell-green {
+  background-color: green;
+}
+
+.cell-red {
+  background-color: red;
+}
+
+.cell-purple {
+  background-color: purple;
+}
+.cell-blue {
+  background-color: blue;
+}
+.board-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(47, 30, 40, 0.9);
+}
+.board-menu-score-title {
+  text-align: center;
+}
+.board-menu-score {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.board-menu-score-btn {
+  color: #000;
+  font-size: 26px;
+  border-radius: 15px;
+  background: #FDBB24;
+  border: 1px solid #4E6FA9;
+  padding: 10px 20px;
+  margin-bottom: 150px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+.board-menu-score-btn:hover {
+  color: #fff;
+  background: #4E6FA9;
+  border: 1px solid #000;
+}
+.pause-menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(47, 30, 40, 0.9);
+}
+.btn-pause {
+  font-size: 26px;
+  border-radius: 15px;
+  color: #000;
+  padding: 10px 20px;
+  margin: 10px 10px 20px 10px;
+  cursor: pointer;
+  background: #FDBB24;
+  border: 1px solid #4E6FA9;
+  transition: 0.3s all;
+}
+.btn-pause:hover {
+  color: #fff;
+  background: #4E6FA9;
+  border: 1px solid #000;
+}
+.leaderboard {
+  max-height: 700px;
+  min-width: 300px;
+  min-height: 200px;
+  outline: 2px solid rgb(134, 154, 189);
+  overflow: auto;
+}
+.leaderboard-bottom-item {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 1px solid rgb(134, 154, 189);
+}
+.board-menu-score-heading {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.blue {
+  background-color: #202126;
+}
+.leaderboard-item-gap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.leaderboard-item-gap p {
+  width: 40px;
+}
+.leaderboard-table {
+  display: flex;
+}
+.leaderboard-bottom-item.orange {
+  background: #fdbb24;
+}
+@media (max-width: 1200px) {
+  .cell {
+    width: 30px;
+    height: 30px;
+  }
+  .row {
+    height: 30px;
+  }
+  .begin-menu-score input {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+}
+@media (max-width: 1000px) {
+  .cell {
+    width: 25px;
+    height: 25px;
+  }
+  .row {
+    height: 25px;
+  }
+}
+@media (max-width: 900px) {
+  .cell {
+    width: 20px;
+    height: 20px;
+  }
+  .row {
+    height: 20px;
+  }
+  .begin-menu-score {
+    flex-direction: column;
+  }
+  .begin-menu-score-btn {
+    font-size: 16px;
+  }
+}
