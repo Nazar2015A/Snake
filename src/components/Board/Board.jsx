@@ -59,6 +59,20 @@ const Board = () => {
   const [menu, setMenu] = useState(false);
   const [speedIncreases, setSpeedIncreases] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
+
+    useEffect(() => {
+    fetchLeaderBoard();
+  }, []);
+
+  async function fetchLeaderBoard() {
+    const response = await fetch("https://backend-test-ednt.onrender.com/adduser");
+    if (response.ok) {
+      const data = await response.json();
+      setLeaderboard(data);
+    } else {
+      console.error("Error fetching leaderboard data");
+    }
+  }
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
       if (!menu) {
@@ -110,8 +124,8 @@ const Board = () => {
   };
 
   const moveSnake = () => {
-    if (begin) {
-      if (!pause) {
+    if (begin && !pause) {
+
         const currentHeadCoords = {
           row: snake.head.value.row,
           col: snake.head.value.col,
@@ -154,7 +168,6 @@ const Board = () => {
         }
 
         setSnakeCells(newSnakeCells);
-      }
     }
   };
 
@@ -221,19 +234,6 @@ const Board = () => {
     }
   };
 
-  useEffect(() => {
-    fetchLeaderBoard();
-  }, []);
-
-  async function fetchLeaderBoard() {
-    const response = await fetch("https://backend-test-ednt.onrender.com/adduser");
-    if (response.ok) {
-      const data = await response.json();
-      setLeaderboard(data);
-    } else {
-      console.error("Error fetching leaderboard data");
-    }
-  }
 
   const resumeGame = () => {
     setMenu(false);
