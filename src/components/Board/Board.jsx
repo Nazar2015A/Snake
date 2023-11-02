@@ -353,7 +353,7 @@ const Board = () => {
                 </div>
               ))}
               {loading && (
-                <div className="leadboard-loading-state">Loading ...</div>
+                <h2 className="leadboard-loading-state">Loading ...</h2>
               )}
             </div>
           </div>
