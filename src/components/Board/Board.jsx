@@ -47,6 +47,7 @@ const Board = () => {
   const [pause, setPause] = useState(false);
   const [chance, setChance] = useState(0.8);
   const [board, setBoard] = useState(createBoard(BOARD_SIZE));
+  const [loading, setLoading] = useState(false);
   const [snake, setSnake] = useState(
     new LinkedList(getStartingSnakeLLValue(board))
   );
@@ -60,15 +61,19 @@ const Board = () => {
   const [speedIncreases, setSpeedIncreases] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
     fetchLeaderBoard();
   }, []);
 
   async function fetchLeaderBoard() {
-    const response = await fetch("https://backend-test-ednt.onrender.com/adduser");
+    setLoading(true);
+    const response = await fetch(
+      "https://backend-test-ednt.onrender.com/adduser"
+    );
     if (response.ok) {
       const data = await response.json();
       setLeaderboard(data);
+      setLoading(false);
     } else {
       console.error("Error fetching leaderboard data");
     }
@@ -125,49 +130,45 @@ const Board = () => {
 
   const moveSnake = () => {
     if (begin && !pause) {
+      const currentHeadCoords = {
+        row: snake.head.value.row,
+        col: snake.head.value.col,
+      };
 
-        const currentHeadCoords = {
-          row: snake.head.value.row,
-          col: snake.head.value.col,
-        };
+      const nextHeadCoords = getCoordsInDirection(currentHeadCoords, direction);
+      if (isOutOfBounds(nextHeadCoords, board)) {
+        handleGameOver();
+        return;
+      }
+      const nextHeadCell = board[nextHeadCoords.row][nextHeadCoords.col];
+      if (snakeCells.has(nextHeadCell)) {
+        handleGameOver();
+        return;
+      }
 
-        const nextHeadCoords = getCoordsInDirection(
-          currentHeadCoords,
-          direction
-        );
-        if (isOutOfBounds(nextHeadCoords, board)) {
-          handleGameOver();
-          return;
-        }
-        const nextHeadCell = board[nextHeadCoords.row][nextHeadCoords.col];
-        if (snakeCells.has(nextHeadCell)) {
-          handleGameOver();
-          return;
-        }
+      const newHead = new LinkedListNode({
+        row: nextHeadCoords.row,
+        col: nextHeadCoords.col,
+        cell: nextHeadCell,
+      });
+      const currentHead = snake.head;
+      snake.head = newHead;
+      currentHead.next = newHead;
 
-        const newHead = new LinkedListNode({
-          row: nextHeadCoords.row,
-          col: nextHeadCoords.col,
-          cell: nextHeadCell,
-        });
-        const currentHead = snake.head;
-        snake.head = newHead;
-        currentHead.next = newHead;
+      const newSnakeCells = new Set(snakeCells);
+      newSnakeCells.delete(snake.tail.value.cell);
+      newSnakeCells.add(nextHeadCell);
 
-        const newSnakeCells = new Set(snakeCells);
-        newSnakeCells.delete(snake.tail.value.cell);
-        newSnakeCells.add(nextHeadCell);
+      snake.tail = snake.tail.next;
+      if (snake.tail === null) snake.tail = snake.head;
 
-        snake.tail = snake.tail.next;
-        if (snake.tail === null) snake.tail = snake.head;
+      const foodConsumed = nextHeadCell === foodCell;
+      if (foodConsumed) {
+        growSnake(newSnakeCells);
+        handleFoodConsumption(newSnakeCells);
+      }
 
-        const foodConsumed = nextHeadCell === foodCell;
-        if (foodConsumed) {
-          growSnake(newSnakeCells);
-          handleFoodConsumption(newSnakeCells);
-        }
-
-        setSnakeCells(newSnakeCells);
+      setSnakeCells(newSnakeCells);
     }
   };
 
@@ -222,18 +223,20 @@ const Board = () => {
       player_name: name,
       score: score,
     };
-    const response = await fetch("https://backend-test-ednt.onrender.com/adduser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(playerData),
-    });
+    const response = await fetch(
+      "https://backend-test-ednt.onrender.com/adduser",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(playerData),
+      }
+    );
     if (!response.ok) {
       console.error("Error sending data");
     }
   };
-
 
   const resumeGame = () => {
     setMenu(false);
@@ -334,15 +337,25 @@ const Board = () => {
               </div>
               <p>Score</p>
             </div>
-            {leaderboard.map((item, index) => (
-              <div key={item.id} className={`leaderboard-bottom-item ${index % 2 !== 0 ? 'blue' : ''}`}>
-                <div className="leaderboard-item-gap">
-                  <p>{index + 1}</p>
-                  <h3>{item.player_name}</h3>
+            <div className="leaderboard-loading">
+              {leaderboard.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={`leaderboard-bottom-item ${
+                    index % 2 !== 0 ? "blue" : ""
+                  }`}
+                >
+                  <div className="leaderboard-item-gap">
+                    <p>{index + 1}</p>
+                    <h3>{item.player_name}</h3>
+                  </div>
+                  <p>{item.score}</p>
                 </div>
-                <p>{item.score}</p>
-              </div>
-            ))}
+              ))}
+              {loading && (
+                <div className="leadboard-loading-state">Loading ...</div>
+              )}
+            </div>
           </div>
         </div>
       </div>

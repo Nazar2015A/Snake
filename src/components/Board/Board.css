@@ -194,6 +194,22 @@
 .leaderboard-bottom-item.orange {
   background: #fdbb24;
 }
+.leaderboard-loading {
+  position: relative;
+}
+.leadboard-loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 580px;
+  background: #1d2026;
+}
 @media (max-width: 1200px) {
   .cell {
     width: 30px;
