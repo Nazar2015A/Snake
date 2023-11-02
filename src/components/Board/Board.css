@@ -195,11 +195,12 @@
   background: #fdbb24;
 }
 .leaderboard-loading {
+  
   position: relative;
 }
 .leadboard-loading-state {
+  padding-top: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
   position: absolute;
   top: 0;
@@ -211,6 +212,10 @@
   background: rgba(29, 32, 38, 0.7);
 }
 @media (max-width: 1200px) {
+  .App {
+    height: 100%;
+    width: 100%;
+  }
   .cell {
     width: 30px;
     height: 30px;
@@ -222,6 +227,14 @@
     font-size: 16px;
     padding: 5px 10px;
   }
+  .container {
+    flex-direction: column;
+  }
+  .leaderboard {
+    max-height: 300px;
+    margin-bottom: 20px;
+  }
+
 }
 @media (max-width: 1000px) {
   .cell {
