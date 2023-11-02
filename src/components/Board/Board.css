@@ -208,7 +208,7 @@
   bottom: 0;
   width: 100%;
   min-height: 580px;
-  background: #1d2026;
+  background: rgba(29, 32, 38, 0.7);
 }
 @media (max-width: 1200px) {
   .cell {
