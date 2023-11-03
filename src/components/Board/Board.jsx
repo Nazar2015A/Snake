@@ -276,8 +276,8 @@ const Board = () => {
                     cellValue,
                     foodCell,
                     snakeCells,
-                    score,
-                    chance
+                    chance,
+                    snake.head.value.cell
                   );
                   return <div key={cellIdx} className={className}></div>;
                 })}
@@ -461,7 +461,7 @@ const getOppositeDirection = (direction) => {
   if (direction === Direction.LEFT) return Direction.RIGHT;
 };
 
-const getCellClassName = (cellValue, foodCell, snakeCells, score, chance) => {
+const getCellClassName = (cellValue, foodCell, snakeCells, chance, head) => {
   let className = "cell";
   if (cellValue === foodCell) {
     if (chance > 0.05 && chance < 0.2) {
@@ -472,7 +472,13 @@ const getCellClassName = (cellValue, foodCell, snakeCells, score, chance) => {
       className = "cell cell-red";
     }
   }
-  if (snakeCells.has(cellValue)) className = "cell cell-green";
+  if (snakeCells.has(cellValue)) {
+    if (cellValue === head) {
+      className = "cell cell-white";
+    } else {
+      className = "cell cell-green";
+    }
+  }
 
   return className;
 };

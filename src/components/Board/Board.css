@@ -211,6 +211,9 @@
   min-height: 580px;
   background: rgba(29, 32, 38, 0.7);
 }
+.cell.cell-white {
+  background: #adf3e9;
+}
 @media (max-width: 1200px) {
   .App {
     height: 100%;
