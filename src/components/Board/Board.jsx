@@ -214,8 +214,10 @@ const Board = () => {
 
   const handleGameOver = async () => {
     setMenu(true);
-    await sendResult();
-    await fetchLeaderBoard();
+    if(score > 0) {
+      await sendResult();
+      await fetchLeaderBoard();
+    }
   };
 
   const sendResult = async () => {
