@@ -68,7 +68,7 @@ const Board = () => {
   async function fetchLeaderBoard() {
     setLoading(true);
     const response = await fetch(
-      process.env.REACT_APP_SERVER_URL
+      "https://backend-test-ednt.onrender.com/adduser"
     );
     if (response.ok) {
       const data = await response.json();
@@ -226,7 +226,7 @@ const Board = () => {
       score: score,
     };
     const response = await fetch(
-      process.env.REACT_APP_SERVER_URL,
+      "https://backend-test-ednt.onrender.com/adduser",
       {
         method: "POST",
         headers: {
